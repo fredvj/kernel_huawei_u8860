@@ -153,8 +153,8 @@ struct msm_fb_data_type {
 
 #ifdef CONFIG_HAS_EARLYSUSPEND
 	struct early_suspend early_suspend;
-#ifdef CONFIG_FB_MSM_MDDI
 	struct early_suspend mddi_early_suspend;
+#ifdef CONFIG_FB_MSM_MDDI
 	struct early_suspend mddi_ext_early_suspend;
 #endif
 #endif
