@@ -565,6 +565,11 @@ err_restore_pon_5:
 }
 EXPORT_SYMBOL(pm8058_hard_reset_config);
 
+int pm8058_rev(struct pm8058_chip *pm_chip)
+{
+	return pm_chip->revision;
+}
+
 static int pm8058_readb(const struct device *dev, u16 addr, u8 *val)
 {
 	const struct pm8xxx_drvdata *pm8058_drvdata = dev_get_drvdata(dev);
@@ -573,7 +578,7 @@ static int pm8058_readb(const struct device *dev, u16 addr, u8 *val)
 	return msm_ssbi_read(pmic->dev->parent, addr, val, 1);
 }
 
-static int pm8058_writeb(const struct device *dev, u16 addr, u8 val)
+int pm8058_writeb(const struct device *dev, u16 addr, u8 val)
 {
 	const struct pm8xxx_drvdata *pm8058_drvdata = dev_get_drvdata(dev);
 	const struct pm8058_chip *pmic = pm8058_drvdata->pm_chip_data;
@@ -581,7 +586,7 @@ static int pm8058_writeb(const struct device *dev, u16 addr, u8 val)
 	return msm_ssbi_write(pmic->dev->parent, addr, &val, 1);
 }
 
-static int pm8058_read_buf(const struct device *dev, u16 addr, u8 *buf,
+int pm8058_read_buf(const struct device *dev, u16 addr, u8 *buf,
 								int cnt)
 {
 	const struct pm8xxx_drvdata *pm8058_drvdata = dev_get_drvdata(dev);
