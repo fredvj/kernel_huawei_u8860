@@ -550,7 +550,7 @@ static int32_t ov5647_sunny_write_exp_gain(uint16_t gain, uint32_t line)
 	uint8_t line0,line1,line2;
 	uint8_t boundary_msb , boundary_lsb;
 
-	if( RES_PREVIEW== ov5647_sunny_ctrl->curr_res)
+	if(ov5647_sunny_ctrl->curr_res == QTR_SIZE)
 	{
 		min_lines_per_frame = OV5647_SUNNY_QTR_SIZE_HEIGHT + OV5647_SUNNY_VER_QTR_BLK_LINES ;
 		max_lines_per_frame = min_lines_per_frame * 4;
@@ -575,7 +575,7 @@ static int32_t ov5647_sunny_write_exp_gain(uint16_t gain, uint32_t line)
 		frame_boundary = line + OV5647_SUNNY_OFFSET ;
 	}
 
-	if (RES_PREVIEW== ov5647_sunny_ctrl->curr_res) {
+	if (ov5647_sunny_ctrl->curr_res == QTR_SIZE) {
 		ov5647_sunny_ctrl->my_reg_gain = gain;
 		ov5647_sunny_ctrl->my_reg_line_count =  line;
 	}	
