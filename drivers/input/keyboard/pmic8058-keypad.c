@@ -24,8 +24,6 @@
 #include <linux/pm.h>
 #include <linux/pm_runtime.h>
 
-#include <linux/mfd/pm8xxx/gpio.h>
-
 #include <linux/input/pmic8058-keypad.h>
 #include <asm/mach-types.h>
 #define PM_GPIO_13          12
@@ -125,7 +123,7 @@ static int pmic8058_kp_write_u8(struct pmic8058_kp *kp,
 {
 	int rc;
 
-	rc = pm8058_writeb(kp->dev->parent, reg, data);
+	rc = pm8058_write(kp->pm_chip, reg, &data, 1);
 	if (rc < 0)
 		dev_warn(kp->dev, "Error writing pmic8058: %X - ret %X\n",
 				reg, rc);
@@ -137,7 +135,7 @@ static int pmic8058_kp_read(struct pmic8058_kp *kp,
 {
 	int rc;
 
-	rc = pm8058_read_buf(kp->dev->parent, reg, data, num_bytes);
+	rc = pm8058_read(kp->pm_chip, reg, data, num_bytes);
 	if (rc < 0)
 		dev_warn(kp->dev, "Error reading pmic8058: %X - ret %X\n",
 				reg, rc);
@@ -597,7 +595,6 @@ static int pmic8058_kpd_init(struct pmic8058_kp *kp)
 	return rc;
 }
 
-#if 0
 static int pm8058_kp_config_drv(int gpio_start, int num_gpios)
 {
 	int	rc;
@@ -622,9 +619,9 @@ static int pm8058_kp_config_drv(int gpio_start, int num_gpios)
 			gpio_start++;
 		    continue;
 		}
-		rc = pm8xxx_gpio_config(gpio_start++, &kypd_drv);
+		rc = pm8058_gpio_config(gpio_start++, &kypd_drv);
 		if (rc) {
-			pr_err("%s: FAIL pm8xxx_gpio_config(): rc=%d.\n",
+			pr_err("%s: FAIL pm8058_gpio_config(): rc=%d.\n",
 				__func__, rc);
 			return rc;
 		}
@@ -649,9 +646,9 @@ static int pm8058_kp_config_sns(int gpio_start, int num_gpios)
 		return -EINVAL;
 
 	while (num_gpios--) {
-		rc = pm8xxx_gpio_config(gpio_start++, &kypd_sns);
+		rc = pm8058_gpio_config(gpio_start++, &kypd_sns);
 		if (rc) {
-			pr_err("%s: FAIL pm8xxx_gpio_config(): rc=%d.\n",
+			pr_err("%s: FAIL pm8058_gpio_config(): rc=%d.\n",
 				__func__, rc);
 			return rc;
 		}
@@ -659,7 +656,6 @@ static int pm8058_kp_config_sns(int gpio_start, int num_gpios)
 
 	return 0;
 }
-#endif
 
 /*
  * keypad controller should be initialized in the following sequence
@@ -836,7 +832,6 @@ static int __devinit pmic8058_kp_probe(struct platform_device *pdev)
 		goto err_kpd_init;
 	}
 
-#if 0
 	rc = pm8058_kp_config_sns(pdata->cols_gpio_start,
 			pdata->num_cols);
 	if (rc < 0) {
@@ -850,7 +845,6 @@ static int __devinit pmic8058_kp_probe(struct platform_device *pdev)
 		dev_err(&pdev->dev, "unable to configure keypad drive lines\n");
 		goto err_gpio_config;
 	}
-#endif
 
 	rc = request_threaded_irq(kp->key_sense_irq, NULL, pmic8058_kp_irq,
 				 IRQF_TRIGGER_RISING, "pmic-keypad", kp);

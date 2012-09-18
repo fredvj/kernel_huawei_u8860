@@ -204,31 +204,4 @@ int pm8058_watchdog_reset_control(int enable);
  */
 int pm8058_stay_on(void);
 
-
-/* Stuff from https://www.codeaurora.org/git/projects/qrd-gb-dsds-7225/repository/revisions/b97d35a9fe38c93178837dcea5d88d0fb28e9ba7/raw/kernel/include/linux/mfd/pmic8058.h */
-
-/* Chip revision */
-#define PM_8058_REV_1p0         0xE1
-#define PM_8058_REV_2p0         0xE2
-#define PM_8058_REV_2p1         0xE3
-
-struct pm8058_gpio {
-	int		direction;
-	int		output_buffer;
-	int		output_value;
-	int		pull;
-	int		vin_sel;	/* 0..7 */
-	int		out_strength;
-	int		function;
-	int		inv_int_pol;	/* invert interrupt polarity */
-};
-
-struct pm8058_chip;
-
-int pm8058_read_buf(const struct device *dev, u16 addr, u8 *buf, int cnt);
-int pm8058_writeb(const struct device *dev, u16 addr, u8 val);
-
-int pm8058_gpio_config(int gpio, struct pm8058_gpio *param);
-int pm8058_rev(struct pm8058_chip *pm_chip);
-
 #endif  /* __MFD_PMIC8058_H__ */
