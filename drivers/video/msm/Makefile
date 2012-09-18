@@ -68,7 +68,6 @@ obj-y += mddi_nt35510.o
 obj-y += hw_backlight.o
 obj-y += hw_mddi_lcd.o
 obj-y += lcd_hw_debug.o
-obj-y += $(msm_mddi-objs)
 endif
 ifeq ($(CONFIG_HUAWEI_KERNEL),y)
 obj-y += mddi_nt35560.o
