@@ -44,7 +44,6 @@
 #include <linux/random.h>
 #include <linux/spinlock.h>
 #include <linux/ethtool.h>
-#include <linux/sched.h>
 #include <asm/uaccess.h>
 #include <asm/unaligned.h>
 
@@ -166,7 +165,7 @@ typedef struct dhd_pub {
 	char * pktfilter[100];
 	int pktfilter_count;
 
-	wl_country_t dhd_cspec;		/* Current Locale info */
+	uint8 country_code[WLC_CNTRY_BUF_SZ];
 	char eventmask[WL_EVENTING_MASK_LEN];
 
 } dhd_pub_t;
