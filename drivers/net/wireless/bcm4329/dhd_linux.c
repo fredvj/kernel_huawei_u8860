@@ -427,7 +427,7 @@ uint dhd_roam = 1;
 uint dhd_radio_up = 1;
 
 /* Network inteface name */
-char iface_name[IFNAMSIZ]={"wlan0"};
+char iface_name[IFNAMSIZ]={"eth0"};
 module_param_string(iface_name, iface_name, IFNAMSIZ, 0);
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 0))

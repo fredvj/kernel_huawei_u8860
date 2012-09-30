@@ -6,8 +6,9 @@ DHDCFLAGS = -DLINUX -DBCMDRIVER -DBCMDONGLEHOST -DDHDTHREAD -DBCMWPA2         \
 	-Wall -Wstrict-prototypes -Werror -DOOB_INTR_ONLY -DCUSTOMER_HW2      \
 	-DDHD_USE_STATIC_BUF -DMMC_SDIO_ABORT -DDHD_DEBUG_TRAP -DSOFTAP       \
 	-DEMBEDDED_PLATFORM -DARP_OFFLOAD_SUPPORT -DPKT_FILTER_SUPPORT        \
-	-DSET_RANDOM_MAC_SOFTAP -DHW_OOB -DCUSTOM_OOB_GPIO_NUM=18             \
-	-DCONFIG_WIFI_CONTROL_FUNC -DCUSTOM_SDCC_WIFI_SLOT=3                  \
+	-DSET_RANDOM_MAC_SOFTAP -DCONFIG_WIFI_CONTROL_FUNC                    \
+	-DCSCAN -DCUSTOM_OOB_GPIO_NUM=18 -DCUSTOM_SDCC_WIFI_SLOT=3            \
+	-DDHD_DEBUG                                                           \
 	-Idrivers/net/wireless/bcm4329 -Idrivers/net/wireless/bcm4329/include
 
 DHDOFILES = dhd_linux.o linux_osl.o bcmutils.o dhd_common.o dhd_custom_gpio.o \
