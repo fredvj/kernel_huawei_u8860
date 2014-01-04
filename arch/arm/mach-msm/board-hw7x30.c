@@ -4635,7 +4635,7 @@ static irqreturn_t pmic_vbus_on_irq(int irq, void *data)
 }
 static int msm_hsusb_pmic_notif_init(void (*callback)(int online), int init)
 {
-	int ret;
+	int ret=0;
 
 	if (init) {
 		if (!callback)
@@ -8092,7 +8092,7 @@ static struct attribute_group synaptics_properties_attr_group = {
 static void __init virtualkeys_init(void)
 {
     struct kobject *properties_kobj;
-    int ret;
+    int ret=0;
     if (machine_is_msm8255_c8860())
     {
         if ((HW_VER_SUB_VA == get_hw_sub_board_id())
